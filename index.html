@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday!</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            text-align: center;
+            background: linear-gradient(135deg, #ffeaa7, #fab1a0);
+            color: #2d3436;
+            margin: 0;
+            padding: 20px;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: url('https://via.placeholder.com/1920x1080/ffffff/cccccc?text=Romantic+Background'), linear-gradient(135deg, #ffeaa7, #fab1a0);
+            background-blend-mode: overlay;
+        }
+        .card {
+            background: #fff;
+            border-radius: 25px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            padding: 60px;
+            max-width: 750px;
+            width: 100%;
+            animation: slideIn 1.5s ease-out;
+            position: relative;
+            overflow: hidden;
+            border: 3px solid #fd79a8;
+        }
+        @keyframes slideIn {
+            from { transform: translateY(50px) scale(0.9); opacity: 0; }
+            to { transform: translateY(0) scale(1); opacity: 1; }
+        }
+        .wish {
+            font-size: 3em;
+            color: #e84393;
+            margin-bottom: 20px;
+            animation: fadeInText 3s ease-in-out;
+            font-weight: bold;
+        }
+        @keyframes fadeInText {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .message {
+            font-size: 1.4em;
+            line-height: 1.8;
+            margin: 30px 0;
+            color: #636e72;
+        }
+        .decorative-line {
+            width: 140px;
+            height: 5px;
+            background: linear-gradient(to right, #e84393, #fd79a8, #fdcb6e);
+            margin: 30px auto;
+            border-radius: 3px;
+        }
+        .cake {
+            font-size: 4em;
+            margin: 30px 0;
+            animation: gentleBounce 4s infinite;
+        }
+        @keyframes gentleBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        .confetti {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: #fdcb6e;
+            border-radius: 50%;
+            animation: float 7s linear infinite;
+            pointer-events: none;
+        }
+        @keyframes float {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        .sparkle {
+            position: absolute;
+            font-size: 2em;
+            color: #fdcb6e;
+            animation: sparkle 3s ease-in-out infinite;
+        }
+        @keyframes sparkle {
+            0%, 100% { opacity: 0.5; transform: scale(1) rotate(0deg); }
+            50% { opacity: 1; transform: scale(1.4) rotate(180deg); }
+        }
+        .button {
+            background: #e84393;
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border-radius: 30px;
+            cursor: pointer;
+            margin-top: 25px;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+        .button:hover {
+            background: #d63031;
+            transform: scale(1.05);
+        }
+        .love-note {
+            font-style: italic;
+            font-size: 1.1em;
+            color: #e84393;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="decorative-line"></div>
+        <h1 class="wish">Happy Birthday, <span id="name"></span>! 💕</h1>
+        <p class="message">On this beautiful day, I want to celebrate the amazing person you are. Your smile lights up my world, and every moment with you is a treasure. May your birthday be as sweet and wonderful as you are, filled with love, joy, and all the happiness you deserve. You mean the world to me, and I can't imagine my life without you.</p>
+        <div class="cake">🎂</div>
+        <p class="love-note">"In your eyes, I found my forever. Happy Birthday, my love!"</p>
+        <button class="button" onclick="playMusic()">Play Our Song</button>
+        <div class="decorative-line"></div>
+        <audio id="music" loop preload="auto">
+            <!-- Replace with your own music URL or file path (e.g., a romantic birthday song MP3) -->
+            <source src="https://www.soundjay.com/misc/sounds/bell-ringing-05.wav" type="audio/wav">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+
+    <script>
+        // Prompt for name when page loads
+        let name = prompt("Please enter her name:");
+        if (name) {
+            document.getElementById('name').textContent = name;
+            
+            // Auto-play music immediately after name input (user interaction)
+            let music = document.getElementById('music');
+            music.play().catch(e => {
+                console.log('Autoplay blocked; use the button to play.');
+                document.querySelector('.button').style.display = 'block'; // Show button if autoplay fails
+            });
+            
+            // Add romantic confetti (hearts and colors)
+            for (let i = 0; i < 50; i++) {
+                let confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.animationDelay = Math.random() * 7 + 's';
+                confetti.style.background = `hsl(${Math.random() * 60 + 300}, 100%, 70%)`; // Pink/red hues
+                if (Math.random() > 0.5) confetti.textContent = '❤️'; // Add hearts
+                document.body.appendChild(confetti);
+            }
+            
+            // Add more sparkles
+            for (let i = 0; i < 20; i++) {
+                let sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.textContent = '✨';
+                sparkle.style.left = Math.random() * 80 + 10 + '%';
+                sparkle.style.top = Math.random() * 80 + 10 + '%';
+                sparkle.style.animationDelay = Math.random() * 3 + 's';
+                document.querySelector('.card').appendChild(sparkle);
+            }
+        } else {
+            alert("Please enter a name to continue!");
+            location.reload(); // Reload if no name
+        }
+
+        function playMusic() {
+            document.getElementById('music').play();
+        }
+    </script>
+</body>
+</html>
